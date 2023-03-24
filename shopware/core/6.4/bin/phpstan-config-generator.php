@@ -17,17 +17,17 @@ $shopwareVersion = \Composer\InstalledVersions::getVersion('shopware/core');
 $pluginRootPath = dirname(__DIR__);
 $composerJson = json_decode((string) file_get_contents($pluginRootPath . '/composer.json'), true);
 
-$HerbrandBundle = [
+$ReplaceThisBundle = [
     'autoload' => $composerJson['autoload'],
-    'baseClass' => \KrmeHerbrandBundle\KrmeHerbrandBundle::class,
+    'baseClass' => \KrmePluginReplaceThis\KrmePluginReplaceThis::class,
     'managedByComposer' => false,
     'active' => true,
     'path' => $pluginRootPath,
-    'name' => 'KrmeHerbrandBundle',
+    'name' => 'KrmePluginReplaceThis',
     'version' => $composerJson['version'],
 ];
 $pluginLoader = new StaticKernelPluginLoader($classLoader, null, [
-    $HerbrandBundle,
+    $ReplaceThisBundle,
 ]);
 
 $kernel = new Kernel('dev', true, $pluginLoader, 'dev', $shopwareVersion, null, dirname(__DIR__, 4) . '/');

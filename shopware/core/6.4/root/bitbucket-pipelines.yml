@@ -19,12 +19,12 @@ pipelines:
           - step:
               name: Run codestyle linters
               script:
-                - cd /var/www/html/custom/plugins/KrmeHerbrandBundle/
+                - cd /var/www/html/custom/plugins/KrmePluginReplaceThis/
                 - composer lint
           - step:
               name: Run PHPUnit Coverage
               script:
-                - cd /var/www/html/custom/plugins/KrmeHerbrandBundle/
+                - cd /var/www/html/custom/plugins/KrmePluginReplaceThis/
                 - composer phpunit-coverage
               artifacts:
                 - test-reports/*
@@ -33,5 +33,5 @@ pipelines:
           image: newtmitch/sonar-scanner
           script:
             - mkdir -p /var/www/html/custom/plugins/
-            - cp -av KrmeHerbrandBundle /var/www/html/custom/plugins/
-            - sonar-scanner -D"sonar.login=${SONAR_TOKEN}" -D"sonar.projectBaseDir=/var/www/html/custom/plugins/KrmeHerbrandBundle" -D"sonar.test.inclusions=**/*.spec.js" -D"sonar.php.coverage.reportPaths=${BITBUCKET_CLONE_DIR}/test-reports/phpunit.clover.xml" -D"sonar.php.tests.reportPath=${BITBUCKET_CLONE_DIR}/test-reports/phpunit.junit.xml"
+            - cp -av KrmePluginReplaceThis /var/www/html/custom/plugins/
+            - sonar-scanner -D"sonar.login=${SONAR_TOKEN}" -D"sonar.projectBaseDir=/var/www/html/custom/plugins/KrmePluginReplaceThis" -D"sonar.test.inclusions=**/*.spec.js" -D"sonar.php.coverage.reportPaths=${BITBUCKET_CLONE_DIR}/test-reports/phpunit.clover.xml" -D"sonar.php.tests.reportPath=${BITBUCKET_CLONE_DIR}/test-reports/phpunit.junit.xml"

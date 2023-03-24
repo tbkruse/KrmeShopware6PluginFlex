@@ -101,7 +101,7 @@ file that was distributed with this source code.', 'separate' => 'bottom', 'loca
 
     $parameters = $ecsConfig->parameters();
     $parameters->set(Option::CACHE_DIRECTORY, $_SERVER['SHOPWARE_TOOL_CACHE_ECS'] ?? 'var/cache/cs_fixer');
-    $parameters->set(Option::CACHE_NAMESPACE, 'KrmeHerbrandBundle');
+    $parameters->set(Option::CACHE_NAMESPACE, 'KrmePluginReplaceThis');
 
     $ecsConfig->parallel();
 

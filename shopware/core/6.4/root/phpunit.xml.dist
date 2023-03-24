@@ -18,7 +18,7 @@
     </php>
 
     <testsuites>
-        <testsuite name="Herbrand Bundle">
+        <testsuite name="ReplaceThis Bundle">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
@@ -32,7 +32,7 @@
             <directory suffix=".php">./vendor</directory>
             <directory suffix=".php">./var</directory>
 
-            <file>src/KrmeHerbrandBundle.php</file>
+            <file>src/KrmePluginReplaceThis.php</file>
             <file>easy-coding-standard.php</file>
             <file>rector.php</file>
             <file>vendor-builder.php</file>
