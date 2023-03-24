@@ -1,0 +1,89 @@
+<?php
+// rector.php
+
+declare(strict_types=1);
+
+use Rector\CodeQuality\Rector\Array_\CallableThisArrayToAnonymousFunctionRector;
+use Rector\Php74\Rector\Closure\ClosureToArrowFunctionRector;
+use Rector\Php73\Rector\FuncCall\JsonThrowOnErrorRector;
+use Rector\Php74\Rector\LNumber\AddLiteralSeparatorToNumberRector;
+use Rector\Symfony\Set\SymfonySetList;
+use Rector\Symfony\Set\TwigSetList;
+use Rector\Laravel\Set\LaravelSetList;
+use Rector\Core\Configuration\Option;
+use Rector\DeadCode\Rector\ClassMethod\RemoveUnusedPrivateMethodRector;
+use Rector\DeadCode\Rector\MethodCall\RemoveEmptyMethodCallRector;
+use Rector\DeadCode\Rector\Property\RemoveSetterOnlyPropertyAndMethodCallRector;
+use Rector\DeadCode\Rector\Property\RemoveUnusedPrivatePropertyRector;
+use Rector\Naming\Rector\Class_\RenamePropertyToMatchTypeRector;
+use Rector\Privatization\Rector\ClassMethod\PrivatizeLocalOnlyMethodRector;
+use Rector\Privatization\Rector\Property\PrivatizeLocalPropertyToPrivatePropertyRector;
+use Rector\Set\ValueObject\SetList;
+use Rector\SOLID\Rector\ClassMethod\UseInterfaceOverImplementationInConstructorRector;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Rector\DeadCode\Rector\StaticCall\RemoveParentCallWithoutParentRector;
+use Rector\Privatization\Rector\Property\PrivatizeFinalClassPropertyRector;
+use Rector\CodingStyle\Rector\ClassMethod\RemoveDoubleUnderscoreInMethodNameRector;
+use Rector\Privatization\Rector\Class_\FinalizeClassesWithoutChildrenRector;
+use Rector\Php55\Rector\String_\StringClassNameToClassConstantRector;
+use Rector\Config\RectorConfig;
+use Rector\Core\ValueObject\PhpVersion;
+use Frosh\Rector\Set\ShopwareSetList;
+use Rector\Renaming\Rector\Name\RenameClassRector;
+use Rector\Renaming\Rector\PropertyFetch\RenamePropertyRector;
+
+return static function (RectorConfig $rectorConfig): void {
+    // paths to refactor; solid alternative to CLI arguments
+    $rectorConfig->paths([
+        __DIR__ . '/src',
+    ]);
+
+    $rectorConfig->skip([
+        __DIR__ . '/src/Entity/**/*Entity.php',
+        AddLiteralSeparatorToNumberRector::class => [
+            __DIR__ . '/**/*'
+        ],
+        PrivatizeLocalPropertyToPrivatePropertyRector::class => [
+            __DIR__ . '/src/**/Struct/*.php'
+        ],
+        PrivatizeLocalOnlyMethodRector::class => [
+            __DIR__ . '/src/**/Struct/*.php'
+        ],
+        PrivatizeFinalClassPropertyRector::class => [
+           __DIR__ . '/src/**/Struct/*.php',
+           __DIR__ . '/src/Entity/*',
+        ],
+        RenamePropertyToMatchTypeRector::class => [
+            __DIR__ . '/src/**/*.php'
+        ]
+    ]);
+
+    $rectorConfig->sets([
+        SymfonySetList::SYMFONY_52,
+        SymfonySetList::SYMFONY_53,
+        SymfonySetList::SYMFONY_CODE_QUALITY,
+        TwigSetList::TWIG_240,
+        SetList::CODE_QUALITY,
+        SetList::CODING_STYLE,
+        SetList::NAMING,
+        SetList::DEAD_CODE,
+        SetList::PHP_72,
+        SetList::PHP_73,
+        SetList::PHP_74,
+        SetList::PHP_80,
+        SetList::PHP_81,
+        SetList::PSR_4,
+        SetList::TYPE_DECLARATION,
+        SetList::PRIVATIZATION
+    ]);
+
+    // is your PHP version different from the one your refactor to? [default: your PHP version]
+    $rectorConfig->phpVersion(PhpVersion::PHP_81);
+
+    $rectorConfig->symfonyContainerXml(file_exists(__DIR__ . '/../../..%ShopwareHashedCacheDir%/srcShopware_Core_KernelDevDebugContainer.xml')
+        ? __DIR__ . '/../../..%ShopwareHashedCacheDir%/srcShopware_Core_KernelDevDebugContainer.xml'
+        : __DIR__ . '/../../..%ShopwareHashedCacheDir%/Shopware_Core_KernelDevDebugContainer.xml'
+    );
+
+    $rectorConfig->parallel();
+};

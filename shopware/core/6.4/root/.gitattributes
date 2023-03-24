@@ -1,0 +1,12 @@
+# Reference: https://git-scm.com/docs/gitattributes
+
+# Set the default behavior, in case people don't have core.autocrlf set
+* text=auto
+
+# File specific behaviors
+*.md eol=lf
+
+# Set export ignored files and directories
+.editorconfig export-ignore
+.gitattributes export-ignore
+.gitignore export-ignore

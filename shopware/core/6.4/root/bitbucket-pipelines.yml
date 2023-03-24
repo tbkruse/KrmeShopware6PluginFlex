@@ -1,0 +1,37 @@
+# This is a sample build configuration for PHP.
+# Check our guides at https://confluence.atlassian.com/x/e8YWN for more examples.
+# Only use spaces to indent your .yml configuration.
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+image:
+  name: dockware/dev:latest
+
+definitions:
+  caches:
+    npm: $HOME/.npm
+    cypress: $HOME/.cache/Cypress
+    composer: $HOME/.composer/cache
+
+pipelines:
+  pull-requests:
+    '**':
+      - parallel:
+          - step:
+              name: Run codestyle linters
+              script:
+                - cd /var/www/html/custom/plugins/KrmeHerbrandBundle/
+                - composer lint
+          - step:
+              name: Run PHPUnit Coverage
+              script:
+                - cd /var/www/html/custom/plugins/KrmeHerbrandBundle/
+                - composer phpunit-coverage
+              artifacts:
+                - test-reports/*
+      - step:
+          name: Check Quality on Sonarqube
+          image: newtmitch/sonar-scanner
+          script:
+            - mkdir -p /var/www/html/custom/plugins/
+            - cp -av KrmeHerbrandBundle /var/www/html/custom/plugins/
+            - sonar-scanner -D"sonar.login=${SONAR_TOKEN}" -D"sonar.projectBaseDir=/var/www/html/custom/plugins/KrmeHerbrandBundle" -D"sonar.test.inclusions=**/*.spec.js" -D"sonar.php.coverage.reportPaths=${BITBUCKET_CLONE_DIR}/test-reports/phpunit.clover.xml" -D"sonar.php.tests.reportPath=${BITBUCKET_CLONE_DIR}/test-reports/phpunit.junit.xml"

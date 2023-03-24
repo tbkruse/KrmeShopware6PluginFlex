@@ -1,0 +1,11 @@
+parameters:
+    level: 8
+    tmpDir: var/cache/phpstan
+    inferPrivatePropertyTypeFromConstructor: true
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
+
+    excludePaths:
+            - */node_modules/
+
+    ignoreErrors:

@@ -1,0 +1,4 @@
+  * <fg=blue>Setup</> your repository:
+
+    1. Go to the project directory
+    2. Create your code repository with the <comment>git init</comment> command and push it to your favourite Git service

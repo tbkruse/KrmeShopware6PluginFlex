@@ -1,0 +1,8 @@
+src/Resources/app/storefront/dist/storefront/js/*
+src/Resources/public/administration/js/*
+coverage/
+tests/e2e/node_modules
+node_modules
+tests/e2e/cypress
+vendor
+src/Resources/app/administration/test/*

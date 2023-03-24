@@ -1,0 +1,17 @@
+# Reference: https://git-scm.com/docs/gitignore
+
+# Editor-specific metadata folders
+.idea/
+.vscode/
+
+# Logfiles
+*.log
+
+# Node mmodules and lock files
+node_modules/
+package-lock.json
+
+# Composer modules and lock files
+vendor/
+composer.lock
+auth.json
